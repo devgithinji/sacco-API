@@ -1,9 +1,6 @@
 package com.densoft.saccoapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +15,9 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "transactions")
 public class Transaction extends BaseEntity {
+    @Column(name = "transaction_code", nullable = false)
     private String transactionCode;
+    @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     private BigDecimal amount;
     @ManyToOne
