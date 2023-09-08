@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -27,15 +28,37 @@ public class Customer extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String phoneNumber;
     @Column(name = "member_number", nullable = false, unique = true)
-    private String memberNumber;
+    private int memberNumber;
+    @Enumerated(EnumType.STRING)
+    private AccountStatus accountStatus;
+    @Column(name = "deactivation_reason")
+    private String deactivationReason;
+    @Column(name = "deactivation_timestamp")
+    protected LocalDateTime deactivationTimestamp;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transaction> transactions;
+    private Set<Transaction> transactions = new LinkedHashSet<>();
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "customer_savings_products",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "savings_product_id")
     )
-    private Set<SavingProduct> savingProducts;
+    private Set<SavingProduct> savingProducts = new LinkedHashSet<>();
 
+
+    public Customer(String firstName,
+                    String lastName,
+                    int idNo,
+                    String email,
+                    String phoneNumber,
+                    int memberNumber,
+                    AccountStatus accountStatus) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.idNo = idNo;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.memberNumber = memberNumber;
+        this.accountStatus = accountStatus;
+    }
 }
