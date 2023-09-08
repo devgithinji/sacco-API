@@ -8,7 +8,7 @@ import com.densoft.saccoapi.model.ActivationStatus;
 import com.densoft.saccoapi.model.Customer;
 import com.densoft.saccoapi.repository.CustomerRepository;
 import com.densoft.saccoapi.service.CustomerService;
-import com.densoft.saccoapi.service.MemberNumberGenerator;
+import com.densoft.saccoapi.service.NumberGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
 
-    private final MemberNumberGenerator memberNumberGenerator;
+    private final NumberGenerator numberGenerator;
 
 
     @Override
@@ -52,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
                 createCustomerReq.getIdNo(),
                 createCustomerReq.getEmail(),
                 createCustomerReq.getPhoneNumber(),
-                memberNumberGenerator.generateAccountNumber(),
+                numberGenerator.generateAccountNumber(),
                 ActivationStatus.ACTIVE);
 
         Customer savedCustomer = customerRepository.save(customer);

@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,7 +17,7 @@ public class Transaction extends BaseEntity {
     private String transactionCode;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
-    private BigDecimal amount;
+    private Double amount;
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

@@ -61,4 +61,8 @@ public class Customer extends BaseEntity {
         this.memberNumber = memberNumber;
         this.activationStatus = activationStatus;
     }
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 }

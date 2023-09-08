@@ -1,5 +1,7 @@
 package com.densoft.saccoapi.service;
 
-public interface MemberNumberGenerator {
+public interface NumberGenerator {
     Integer generateAccountNumber();
+
+    String generateTransactionCode();
 }

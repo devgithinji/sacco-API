@@ -18,4 +18,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
                                                                            @Param("phoneNumber") String phoneNumber,
                                                                            @Param("customerId") long customerId);
 
+
+    Optional<Customer> findByMemberNumber(int memberNumber);
+
 }
