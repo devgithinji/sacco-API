@@ -40,7 +40,8 @@ public class CustomerController {
     }
 
     @PostMapping("/{customerId}")
-    public CreateCustomerRes updateCustomer(@Valid @RequestBody CreateCustomerReq createCustomerReq, @PathVariable("customerId") Long customerId) {
+    public CreateCustomerRes updateCustomer(@Valid @RequestBody CreateCustomerReq createCustomerReq,
+                                            @PathVariable("customerId") Long customerId) {
         return customerService.updateCustomer(customerId, createCustomerReq);
     }
 
