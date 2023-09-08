@@ -30,7 +30,7 @@ public class Customer extends BaseEntity {
     @Column(name = "member_number", nullable = false, unique = true)
     private int memberNumber;
     @Enumerated(EnumType.STRING)
-    private AccountStatus accountStatus;
+    private ActivationStatus activationStatus;
     @Column(name = "deactivation_reason")
     private String deactivationReason;
     @Column(name = "deactivation_timestamp")
@@ -52,13 +52,13 @@ public class Customer extends BaseEntity {
                     String email,
                     String phoneNumber,
                     int memberNumber,
-                    AccountStatus accountStatus) {
+                    ActivationStatus activationStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.idNo = idNo;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.memberNumber = memberNumber;
-        this.accountStatus = accountStatus;
+        this.activationStatus = activationStatus;
     }
 }

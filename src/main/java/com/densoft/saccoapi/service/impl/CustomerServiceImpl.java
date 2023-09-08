@@ -4,7 +4,7 @@ import com.densoft.saccoapi.dto.request.CreateCustomerReq;
 import com.densoft.saccoapi.dto.response.CreateCustomerRes;
 import com.densoft.saccoapi.exception.APIException;
 import com.densoft.saccoapi.exception.ResourceNotFoundException;
-import com.densoft.saccoapi.model.AccountStatus;
+import com.densoft.saccoapi.model.ActivationStatus;
 import com.densoft.saccoapi.model.Customer;
 import com.densoft.saccoapi.repository.CustomerRepository;
 import com.densoft.saccoapi.service.CustomerService;
@@ -53,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
                 createCustomerReq.getEmail(),
                 createCustomerReq.getPhoneNumber(),
                 memberNumberGenerator.generateAccountNumber(),
-                AccountStatus.ACTIVE);
+                ActivationStatus.ACTIVE);
 
         Customer savedCustomer = customerRepository.save(customer);
 
@@ -89,25 +89,25 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String deactivateAccount(long customerId, String deactivationReason) {
-        return toggleAccountStatus(customerId, AccountStatus.DEACTIVATED, deactivationReason);
+        return toggleAccountStatus(customerId, ActivationStatus.DEACTIVATED, deactivationReason);
     }
 
 
     @Override
     public String activateAccount(long customerId) {
-        return toggleAccountStatus(customerId, AccountStatus.ACTIVE, "");
+        return toggleAccountStatus(customerId, ActivationStatus.ACTIVE, "");
     }
 
 
-    private String toggleAccountStatus(long customerId, AccountStatus accountStatus, String reason) {
+    private String toggleAccountStatus(long customerId, ActivationStatus activationStatus, String reason) {
         Optional<Customer> customerOptional = customerRepository.findById(customerId);
         if (customerOptional.isEmpty())
             throw new ResourceNotFoundException("customer", "id", String.valueOf(customerId));
 
         Customer existingCustomer = customerOptional.get();
-        existingCustomer.setAccountStatus(accountStatus);
+        existingCustomer.setActivationStatus(activationStatus);
 
-        if (accountStatus.equals(AccountStatus.DEACTIVATED)) {
+        if (activationStatus.equals(ActivationStatus.DEACTIVATED)) {
             existingCustomer.setDeactivationReason(reason);
             existingCustomer.setDeactivationTimestamp(LocalDateTime.now());
         } else {
@@ -117,7 +117,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         customerRepository.save(existingCustomer);
 
-        String action = accountStatus.equals(AccountStatus.DEACTIVATED) ? "deactivated" : "activated";
+        String action = activationStatus.equals(ActivationStatus.DEACTIVATED) ? "deactivated" : "activated";
 
         return "customer number: %d %s".formatted(existingCustomer.getMemberNumber(), action);
     }

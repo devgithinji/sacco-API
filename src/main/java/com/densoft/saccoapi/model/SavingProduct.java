@@ -1,8 +1,6 @@
 package com.densoft.saccoapi.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "savings")
+@Table(name = "saving_products")
 public class SavingProduct extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
@@ -21,4 +19,7 @@ public class SavingProduct extends BaseEntity {
     private String description;
     @Column(name = "interest_rate", nullable = false)
     private double interestRate;
+    @Column(name = "activation_status")
+    @Enumerated(EnumType.STRING)
+    private ActivationStatus activationStatus;
 }

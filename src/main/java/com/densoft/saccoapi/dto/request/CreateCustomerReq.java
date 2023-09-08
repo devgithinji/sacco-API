@@ -2,6 +2,7 @@ package com.densoft.saccoapi.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -11,11 +12,13 @@ public class CreateCustomerReq {
     @NotBlank(message = "lastname is required")
     private String lastName;
     @NotBlank(message = "id number is required")
+    @Pattern(regexp = "\\d+", message = "invalid Id number")
     private int idNo;
     @Email(message = "invalid email")
     @NotBlank(message = "email is required")
     private String email;
     @NotBlank(message = "phone number is required")
+    @Pattern(regexp = "\\d+", message = "invalid phone number")
     private String phoneNumber;
 
 }
