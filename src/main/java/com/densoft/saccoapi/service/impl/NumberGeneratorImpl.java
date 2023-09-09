@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +20,8 @@ public class NumberGeneratorImpl implements NumberGenerator {
 
     @Override
     public Integer generateAccountNumber() {
-        List<Integer> accountNos = customerRepository.findAll().stream().sorted().map(Customer::getMemberNumber).toList();
+        List<Integer> accountNos = new java.util.ArrayList<>(customerRepository.findAll().stream().map(Customer::getMemberNumber).toList());
+        Collections.sort(accountNos);
         if (accountNos.isEmpty()) {
             return 10000000;
         }

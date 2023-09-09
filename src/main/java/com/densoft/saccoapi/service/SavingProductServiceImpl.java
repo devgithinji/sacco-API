@@ -26,7 +26,7 @@ public class SavingProductServiceImpl implements SavingProductService {
         SavingProduct savingProduct = new SavingProduct(
                 createSavingProductReq.getName(),
                 createSavingProductReq.getDescription(),
-                createSavingProductReq.getInterestRate(),
+                Double.parseDouble(createSavingProductReq.getInterestRate()),
                 ActivationStatus.ACTIVE
         );
 
@@ -58,7 +58,7 @@ public class SavingProductServiceImpl implements SavingProductService {
 
         savingProduct.setName(createSavingProductReq.getName());
         savingProduct.setDescription(createSavingProductReq.getDescription());
-        savingProduct.setInterestRate(createSavingProductReq.getInterestRate());
+        savingProduct.setInterestRate(Double.parseDouble(createSavingProductReq.getInterestRate()));
 
         SavingProduct updatedSavingProduct = savingProductRepository.save(savingProduct);
 
@@ -80,6 +80,8 @@ public class SavingProductServiceImpl implements SavingProductService {
     private String toggleSavingProductStatus(long savingProductId, ActivationStatus activationStatus) {
         SavingProduct savingProduct = savingProductRepository.findById(savingProductId)
                 .orElseThrow(() -> new ResourceNotFoundException("saving product", "Id", String.valueOf(savingProductId)));
+        if (savingProduct.getActivationStatus().equals(activationStatus))
+            throw new APIException("product %s is already %s".formatted(savingProduct.getName(), activationStatus.equals(ActivationStatus.ACTIVE) ? "active" : "deactivated"));
         savingProduct.setActivationStatus(activationStatus);
         savingProductRepository.save(savingProduct);
         return "saving product: %s %s".formatted(savingProduct.getName(), activationStatus.equals(ActivationStatus.ACTIVE) ? "activated" : "deactivated");

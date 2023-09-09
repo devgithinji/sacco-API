@@ -1,7 +1,6 @@
 package com.densoft.saccoapi.dto.request;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
@@ -11,6 +10,7 @@ public class CreateSavingProductReq {
     @NotBlank(message = "description required")
     private String description;
     @NotBlank(message = "interest Rate required")
-    @DecimalMin(value = "0.0", message = "interest rate cannot be greater than 0")
-    private double interestRate;
+    @Pattern(regexp = "^[0-9]*\\.?[0-9]*$", message = "Input must be a valid numeric value")
+    @DecimalMin(value = "0.1", message = "Input must be greater than 0")
+    private String interestRate;
 }

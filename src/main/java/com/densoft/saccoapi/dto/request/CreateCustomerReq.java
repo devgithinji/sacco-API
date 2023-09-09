@@ -12,8 +12,8 @@ public class CreateCustomerReq {
     @NotBlank(message = "lastname is required")
     private String lastName;
     @NotBlank(message = "id number is required")
-    @Pattern(regexp = "\\d+", message = "invalid Id number")
-    private int idNo;
+    @Pattern(regexp = "^[0-9]*\\.?[0-9]*$", message = "Input must be a valid numeric value")
+    private String idNo;
     @Email(message = "invalid email")
     @NotBlank(message = "email is required")
     private String email;

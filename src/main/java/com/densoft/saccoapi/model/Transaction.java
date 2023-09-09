@@ -24,4 +24,5 @@ public class Transaction extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "saving_product_id")
     private SavingProduct savingProduct;
+
 }

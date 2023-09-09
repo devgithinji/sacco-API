@@ -1,5 +1,6 @@
 package com.densoft.saccoapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,24 +20,36 @@ import java.util.Set;
 public class Customer extends BaseEntity {
     @Column(name = "first_name", nullable = false)
     private String firstName;
+
     @Column(name = "last_name", nullable = false)
     private String lastName;
+
     @Column(name = "id_no", nullable = false)
     private int idNo;
+
     @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false, unique = true)
     private String phoneNumber;
+
     @Column(name = "member_number", nullable = false, unique = true)
     private int memberNumber;
+
     @Enumerated(EnumType.STRING)
     private ActivationStatus activationStatus;
+
     @Column(name = "deactivation_reason")
     private String deactivationReason;
+
     @Column(name = "deactivation_timestamp")
-    protected LocalDateTime deactivationTimestamp;
+    private LocalDateTime deactivationTimestamp;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Transaction> transactions = new LinkedHashSet<>();
+
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "customer_savings_products",
@@ -62,6 +75,7 @@ public class Customer extends BaseEntity {
         this.activationStatus = activationStatus;
     }
 
+    @JsonIgnore
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }

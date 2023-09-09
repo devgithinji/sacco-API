@@ -40,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CreateCustomerRes saveCustomer(CreateCustomerReq createCustomerReq) {
         Optional<Customer> customerOptional = customerRepository.findByEmailOrIdNoOrPhoneNumber(
                 createCustomerReq.getEmail(),
-                createCustomerReq.getIdNo(),
+                Integer.parseInt(createCustomerReq.getIdNo()),
                 createCustomerReq.getPhoneNumber()
         );
 
@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = new Customer(
                 createCustomerReq.getFirstName(),
                 createCustomerReq.getLastName(),
-                createCustomerReq.getIdNo(),
+                Integer.parseInt(createCustomerReq.getIdNo()),
                 createCustomerReq.getEmail(),
                 createCustomerReq.getPhoneNumber(),
                 numberGenerator.generateAccountNumber(),
@@ -68,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         Optional<Customer> collidingCustomers = customerRepository.findOtherCustomerWithSimilarDetailsExcludingCurrent(
                 createCustomerReq.getEmail(),
-                createCustomerReq.getIdNo(),
+                Integer.parseInt(createCustomerReq.getIdNo()),
                 createCustomerReq.getPhoneNumber(),
                 customerId
         );
@@ -80,7 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
         existingCustomer.setLastName(createCustomerReq.getLastName());
         existingCustomer.setEmail(createCustomerReq.getEmail());
         existingCustomer.setPhoneNumber(createCustomerReq.getPhoneNumber());
-        existingCustomer.setIdNo(createCustomerReq.getIdNo());
+        existingCustomer.setIdNo(Integer.parseInt(createCustomerReq.getIdNo()));
 
         Customer updatedCustomer = customerRepository.save(existingCustomer);
 
@@ -105,6 +105,9 @@ public class CustomerServiceImpl implements CustomerService {
             throw new ResourceNotFoundException("customer", "id", String.valueOf(customerId));
 
         Customer existingCustomer = customerOptional.get();
+        if (existingCustomer.getActivationStatus().equals(activationStatus))
+            throw new APIException("user is already " + (activationStatus.equals(ActivationStatus.ACTIVE) ? "activated" : "deactivated"));
+
         existingCustomer.setActivationStatus(activationStatus);
 
         if (activationStatus.equals(ActivationStatus.DEACTIVATED)) {

@@ -7,6 +7,7 @@ import com.densoft.saccoapi.dto.response.CustomerSavingsRes;
 import com.densoft.saccoapi.service.SavingsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,7 @@ public class SavingController {
     private final SavingsService savingsService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public CreateTransactionRes saveTransaction(@Valid @RequestBody CreateTransactionReq createTransactionReq) {
         return savingsService.createTransaction(createTransactionReq);
     }

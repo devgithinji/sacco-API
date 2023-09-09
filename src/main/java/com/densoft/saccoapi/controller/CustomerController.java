@@ -1,11 +1,11 @@
 package com.densoft.saccoapi.controller;
 
 import com.densoft.saccoapi.dto.request.CreateCustomerReq;
+import com.densoft.saccoapi.dto.request.DeactivateCustomer;
 import com.densoft.saccoapi.dto.response.CreateCustomerRes;
 import com.densoft.saccoapi.model.Customer;
 import com.densoft.saccoapi.service.CustomerService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/customer")
 @RequiredArgsConstructor
-@Validated
 public class CustomerController {
 
     public final CustomerService customerService;
@@ -39,16 +38,16 @@ public class CustomerController {
         return customerService.getCustomerById(customerId);
     }
 
-    @PostMapping("/{customerId}")
+    @PutMapping("/{customerId}")
     public CreateCustomerRes updateCustomer(@Valid @RequestBody CreateCustomerReq createCustomerReq,
                                             @PathVariable("customerId") Long customerId) {
         return customerService.updateCustomer(customerId, createCustomerReq);
     }
 
     @PostMapping("/deactivate/{customerId}")
-    public ResponseEntity<Map<String, String>> deactivateCustomer(@RequestParam @NotBlank(message = "deactivation reason required") String message,
+    public ResponseEntity<Map<String, String>> deactivateCustomer(@Valid @RequestBody DeactivateCustomer deactivateCustomer,
                                                                   @PathVariable("customerId") Long customerId) {
-        String response = customerService.deactivateAccount(customerId, message);
+        String response = customerService.deactivateAccount(customerId, deactivateCustomer.getMessage());
 
         return ResponseEntity.ok(Map.of("message", response));
     }

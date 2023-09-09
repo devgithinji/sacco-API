@@ -6,6 +6,7 @@ import com.densoft.saccoapi.model.SavingProduct;
 import com.densoft.saccoapi.service.SavingProductService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class SavingProductController {
     private final SavingProductService savingProductService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public CreateSavingProductRes createSavingProduct(@Valid @RequestBody CreateSavingProductReq createSavingProductReq) {
         return savingProductService.createSavingProduct(createSavingProductReq);
     }
