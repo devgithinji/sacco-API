@@ -12,8 +12,7 @@ This is a simple Spring Boot application that demonstrates how to connect to a M
 
 1. Clone the repository:
 
-git clone https://github.com/[your-username]/spring-boot-mysql-sacco-api.git
-
+git clone <repo url>
 
 2. Create a MySQL database and user.
 3. Update the `application.properties` file in the `src/main/resources` folder with the following information:
@@ -26,16 +25,17 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 ```
 
-Build the project:
+## Build the project:
 
-mvn clean install
+`mvn clean install`
 
-Run the application:
+## Run the application:
 
-mvn spring-boot:run
+`mvn spring-boot:run`
 
 The application will be available at http://localhost:8080.
 
-Tests
+## Tests
+
 The application comes with a set of unit tests. To run the tests, execute the following command:
-mvn test
+`mvn test`
