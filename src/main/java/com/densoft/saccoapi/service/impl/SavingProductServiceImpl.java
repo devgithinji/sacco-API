@@ -1,4 +1,4 @@
-package com.densoft.saccoapi.service;
+package com.densoft.saccoapi.service.impl;
 
 import com.densoft.saccoapi.dto.request.CreateSavingProductReq;
 import com.densoft.saccoapi.dto.response.CreateSavingProductRes;
@@ -7,6 +7,7 @@ import com.densoft.saccoapi.exception.ResourceNotFoundException;
 import com.densoft.saccoapi.model.ActivationStatus;
 import com.densoft.saccoapi.model.SavingProduct;
 import com.densoft.saccoapi.repository.SavingProductRepository;
+import com.densoft.saccoapi.service.SavingProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
