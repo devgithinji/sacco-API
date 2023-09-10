@@ -1,9 +1,11 @@
 package com.densoft.saccoapi.dto.request;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CreateSavingProductReq {
     @NotBlank(message = "name required")
     private String name;

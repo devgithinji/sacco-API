@@ -59,6 +59,24 @@ public class Customer extends BaseEntity {
     private Set<SavingProduct> savingProducts = new LinkedHashSet<>();
 
 
+    public Customer(int id,
+                    String firstName,
+                    String lastName,
+                    int idNo,
+                    String email,
+                    String phoneNumber,
+                    int memberNumber,
+                    ActivationStatus activationStatus) {
+        super(id);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.idNo = idNo;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.memberNumber = memberNumber;
+        this.activationStatus = activationStatus;
+    }
+
     public Customer(String firstName,
                     String lastName,
                     int idNo,
