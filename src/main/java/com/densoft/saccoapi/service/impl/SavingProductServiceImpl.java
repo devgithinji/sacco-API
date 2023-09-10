@@ -53,7 +53,7 @@ public class SavingProductServiceImpl implements SavingProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("saving product", "Id", String.valueOf(savingProductId)));
 
         Optional<SavingProduct> collidingSavingProduct = savingProductRepository.findByNameExcludeCurrentId(
-                createSavingProductReq.getName(), String.valueOf(savingProductId));
+                createSavingProductReq.getName(), savingProductId);
 
         if (collidingSavingProduct.isPresent()) throw new APIException("name is already taken");
 
