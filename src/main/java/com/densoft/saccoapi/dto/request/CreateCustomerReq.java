@@ -3,9 +3,11 @@ package com.densoft.saccoapi.dto.request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CreateCustomerReq {
     @NotBlank(message = "firstname is required")
     private String firstName;

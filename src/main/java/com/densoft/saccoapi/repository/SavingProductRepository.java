@@ -11,5 +11,5 @@ public interface SavingProductRepository extends JpaRepository<SavingProduct, Lo
     Optional<SavingProduct> findByName(String name);
 
     @Query("SELECT s FROM SavingProduct  s WHERE s.name = :name AND s.id <> :savingProductId")
-    Optional<SavingProduct> findByNameExcludeCurrentId(@Param("name") String name, @Param("savingProductId") String savingProductId);
+    Optional<SavingProduct> findByNameExcludeCurrentId(@Param("name") String name, @Param("savingProductId") long savingProductId);
 }

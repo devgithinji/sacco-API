@@ -88,7 +88,7 @@ public class SavingsServiceImpl implements SavingsService {
     }
 
     private Integer getCustomerNo(Map<Integer, Long> integerLongMap) {
-        return  integerLongMap.entrySet().size();
+        return integerLongMap.entrySet().size();
     }
 
     private Map<String, Double> getTotalMoneyPerSavingsProduct() {
@@ -122,6 +122,7 @@ public class SavingsServiceImpl implements SavingsService {
                 transaction -> transaction.getSavingProduct().getName(),
                 Collectors.summingDouble(Transaction::getAmount)
         ));
+
 
         double totalSavingsForALLSavingsProducts = summaryPerSavingProduct.values().stream().mapToDouble(value -> value).sum();
 

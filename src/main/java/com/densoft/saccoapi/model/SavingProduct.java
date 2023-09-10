@@ -22,4 +22,16 @@ public class SavingProduct extends BaseEntity {
     @Column(name = "activation_status")
     @Enumerated(EnumType.STRING)
     private ActivationStatus activationStatus;
+
+    public SavingProduct(int id,
+                         String name,
+                         String description,
+                         double interestRate,
+                         ActivationStatus activationStatus) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.interestRate = interestRate;
+        this.activationStatus = activationStatus;
+    }
 }
