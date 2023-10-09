@@ -2,6 +2,10 @@
 
 This is a simple Spring Boot application that demonstrates how to connect to a MySQL database and perform CRUD operations for a Sacco API.
 
+Documentation
+[available here](https://sacco-api-ke-d1c5f5244329.herokuapp.com/swagger-ui/index.html)
+
+
 ## Requirements
 
 - Java 17
